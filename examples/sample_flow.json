@@ -1,0 +1,196 @@
+[
+    {
+        "id": "7d77df3a4fefb1e8",
+        "type": "absolute-humidity",
+        "z": "90953b9fb42007bd",
+        "name": "",
+        "x": 1150,
+        "y": 2380,
+        "wires": [
+            [
+                "6772cdcc6736dd02"
+            ]
+        ]
+    },
+    {
+        "id": "3b0890e62d7e251e",
+        "type": "inject",
+        "z": "90953b9fb42007bd",
+        "name": "both values as properties",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "20",
+                "vt": "num"
+            },
+            {
+                "p": "relativeHumidity",
+                "v": "75",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 870,
+        "y": 2380,
+        "wires": [
+            [
+                "7d77df3a4fefb1e8"
+            ]
+        ]
+    },
+    {
+        "id": "6772cdcc6736dd02",
+        "type": "debug",
+        "z": "90953b9fb42007bd",
+        "name": "output result",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 2460,
+        "wires": []
+    },
+    {
+        "id": "69d5efdf639d377f",
+        "type": "absolute-humidity",
+        "z": "90953b9fb42007bd",
+        "name": "",
+        "x": 1150,
+        "y": 2460,
+        "wires": [
+            [
+                "6772cdcc6736dd02"
+            ]
+        ]
+    },
+    {
+        "id": "86a3ca32235dacf7",
+        "type": "inject",
+        "z": "90953b9fb42007bd",
+        "name": "temperature as property",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "20",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 860,
+        "y": 2440,
+        "wires": [
+            [
+                "69d5efdf639d377f"
+            ]
+        ]
+    },
+    {
+        "id": "7c28994df5fad89c",
+        "type": "inject",
+        "z": "90953b9fb42007bd",
+        "name": "humidity as property",
+        "props": [
+            {
+                "p": "relativeHumidity",
+                "v": "75",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 850,
+        "y": 2480,
+        "wires": [
+            [
+                "69d5efdf639d377f"
+            ]
+        ]
+    },
+    {
+        "id": "9a7317ae2de70579",
+        "type": "absolute-humidity",
+        "z": "90953b9fb42007bd",
+        "name": "",
+        "x": 1150,
+        "y": 2560,
+        "wires": [
+            [
+                "6772cdcc6736dd02"
+            ]
+        ]
+    },
+    {
+        "id": "fc1d48835f913252",
+        "type": "inject",
+        "z": "90953b9fb42007bd",
+        "name": "temperature as payload",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "temperature",
+        "payload": "20",
+        "payloadType": "num",
+        "x": 860,
+        "y": 2540,
+        "wires": [
+            [
+                "9a7317ae2de70579"
+            ]
+        ]
+    },
+    {
+        "id": "62b0f8bbc3967ee7",
+        "type": "inject",
+        "z": "90953b9fb42007bd",
+        "name": "humidity as payload",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "relativeHumidity",
+        "payload": "75",
+        "payloadType": "num",
+        "x": 850,
+        "y": 2580,
+        "wires": [
+            [
+                "9a7317ae2de70579"
+            ]
+        ]
+    }
+]
