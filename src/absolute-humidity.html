@@ -1,0 +1,73 @@
+<script type="text/javascript">
+  RED.nodes.registerType('absolute-humidity',{
+      category: 'weather',
+      color: '#7facf5',
+      defaults: {
+          name: {value:""}
+      },
+      inputs: 1,
+      outputs: 1,
+      icon: "font-awesome/fa-tint",
+      label: function() {
+          return this.name||"absolute-humidity";
+      }
+    });
+</script>
+
+<script type="text/html" data-template-name="lower-case">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+
+
+<script type="text/markdown" data-help-name="absolute-humidity" lang="en-US">
+Calculates the absolute humidity and dew point for a given relative humidity and air temperature.
+    
+### Inputs
+  
+: msg.relativeHumidity (number)	:
+: msg.temperature (number)	:
+
+### Inputs
+
+: msg.absoluteHumidity (number)	:
+: msg.dewPoint (number)		:
+
+### Details
+    
+The received message shall contain two properties:
+    
+`msg.relativeHumidity` is a measure of the amount of water vapor in the air compared to the amount of vapor that can exist in the air at its current temperature. It is measured in percent [%].
+`msg.temperature` is the current air temperature. It is measured in degrees Celsius [°C].
+
+Based on this two measures, the node calculates two properties which are stored in the outgoing message:
+  
+`msg.absoluteHumidity` is a measure of the actual amount of water vapor (moisture) in the air, regardless of the air temperature. It is measured in grams water per cubic metre air [kg/m³].
+`msg.dewPoint` is the temperature to which it must be cooled to become saturated with water vapor. When the air is cooled below the dew point, its moisture capacity is reduced and airborne water vapor will condense to form liquid water known as dew. When this occurs through the air's contact with a colder surface, dew will form on that surface. It is measured in degrees Celsius [°C].
+
+### References
+
+-  https://www.wetterochs.de/wetter/feuchte.html
+</script>
+
+<script type="text/html" data-help-name="absolute-humidity" lang="de-DE">
+    <p>Berechnet absolute Luftfeuchte und Taupunkt für gegebene relative Luftfeuchte und Temperatur.</p>
+    
+    <h3>Input</h3>
+
+    <ul>
+    <li><b>msg.relativeHumidity</b>: die relative Luftfeuchtigkeit in Prozent</li>
+    <li><b>msg.temperature</b>: die Temperatur in °C</li>
+    </ul>
+    
+    <h3>Output</h3>
+    
+    <li><b>msg.absoluteHumidity</b>: die absolute Luftfeuchtigkeit in Gramm Wasserdampf pro Kubikmeter Luft, auf eine Nachkommastelle gerundet</li>
+    <li><b>msg.dewPoint</b>: der Taupunkt in °C, auf eine Nachkommastelle gerundet</li>
+  
+  
+</script>
+
