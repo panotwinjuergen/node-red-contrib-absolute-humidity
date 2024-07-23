@@ -29,5 +29,9 @@
     "repository": {
 	"type": "github",
 	"url": "git+https://github.com/r375ch/node-red-contrib-absolute-humidity.git"
-  }
+    },
+    "publishConfig": {
+	"access": "public",
+	"registry": "https://registry.npmjs.org/"
+    }
 }
