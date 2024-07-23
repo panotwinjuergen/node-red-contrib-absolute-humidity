@@ -1,15 +1,16 @@
 {
-    "name": "node-red-contrib-absolute-humidity",
-    "version": "0.1.0",
+    "name": "@r375ch/absolute-humidity",
+    "version": "0.9.0",
     "description": "Calculates the absolute air humidity and dew point based on relative humidity and temperature",
     "main": "absolute-humidity.js",
-    "author": "retsch",
+    "author": "r375ch",
     "license": "Unlicense",
     "node-red": {
         "nodes": {
             "absolute-humidity": "src/absolute-humidity.js"
         }
     },
+    "keywords": [ "node-red", "humidity", "dew point" ],
     "scripts": {
         "test": "mocha \"test/**/*_spec.js\""
     },
@@ -20,5 +21,13 @@
     "devDependencies": {
         "node-red": "^4.0.2",
         "node-red-node-test-helper": "^0.3.4"
-    }
+    },
+    "bugs": {
+	"url": "https://github.com/r375ch/node-red-contrib-absolute-humidity/issues"
+    },
+    "homepage": "https://github.com/r375ch/node-red-contrib-absolute-humidity",
+    "repository": {
+	"type": "github",
+	"url": "git+https://github.com/r375ch/node-red-contrib-absolute-humidity.git"
+  }
 }
