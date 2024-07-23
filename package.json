@@ -1,14 +1,18 @@
 {
     "name": "@r375ch/absolute-humidity",
-    "version": "0.9.0",
+    "version": "0.9.1",
     "description": "Calculates the absolute air humidity and dew point based on relative humidity and temperature",
     "main": "absolute-humidity.js",
     "author": "r375ch",
     "license": "Unlicense",
     "node-red": {
+	"version": ">=2.0.0",
         "nodes": {
             "absolute-humidity": "src/absolute-humidity.js"
         }
+    },
+    "engines": {
+        "node": ">=12.0.0"
     },
     "keywords": [ "node-red", "humidity", "dew point" ],
     "scripts": {
