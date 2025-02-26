@@ -89,7 +89,7 @@ module.exports = function(RED) {
 	    
 	    //console.log("msg.absoluteHumidity=" + msg.absoluteHumidity + ", msg.dewPoint=" + msg.dewPoint);
 
-	    descr = "abs.hum" + AF + "g/m³, dp=" + TD + "°C";
+	    descr = "AH: " + AF + "g/m³, DP: " + TD + "°C";
 	    this.status({fill:"green",shape:"dot",text:descr});
 
 	    send(msg);
