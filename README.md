@@ -1,16 +1,33 @@
 Calculates the absolute humidity and dew point for a given relative humidity and air temperature.
     
+### Configuration
+
+The node can be configured with custom message topics for both temperature and relative humidity inputs:
+
+- **Temperature Topic**: The topic name for temperature messages (default: "temperature")
+- **Relative Humidity Topic**: The topic name for relative humidity messages (default: "relativeHumidity")
+
 ### Inputs
-  
-`msg.relativeHumidity` (number)	: the relative humidity [%]
 
-`msg.temperature (number)`	: the air temperature [°C]
+The node accepts inputs in three ways:
 
-### Out
+1. Using message properties:
+   - `msg.relativeHumidity` (number): the relative humidity [%]
+   - `msg.temperature` (number): the air temperature [°C]
 
-`msg.absoluteHumidity` (number)	: the absolute humidity [g/m³], rounded to one decimal place
+2. Using configured topics:
+   - Messages with the configured temperature topic and `msg.payload` (number) for temperature [°C]
+   - Messages with the configured humidity topic and `msg.payload` (number) for relative humidity [%]
 
-`msg.dewPoint` (number)		: the dew point [°C], rounded to one decimal place
+3. Using datapoint identifiers:
+   - Messages with `msg.datapoint = "ACTUAL_TEMPERATURE"` and `msg.payload` (number) for temperature [°C]
+   - Messages with `msg.datapoint = "HUMIDITY"` and `msg.payload` (number) for relative humidity [%]
+
+### Outputs
+
+`msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to one decimal place
+
+`msg.dewPoint` (number): the dew point [°C], rounded to one decimal place
 
 ### Details
     

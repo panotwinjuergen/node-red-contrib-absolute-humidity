@@ -4,7 +4,9 @@
       category: 'weather',
       color: '#7facf5',
       defaults: {
-          name: {value:""}
+          name: {value:""},
+          temperatureTopic: {value:"temperature"},
+          humidityTopic: {value:"relativeHumidity"}
       },
       inputs: 1,
       outputs: 1,
@@ -21,6 +23,12 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row">
+        <label for="node-input-temperatureTopic"><i class="fa fa-thermometer-half"></i> Temperature Topic</label>
+        <input type="text" id="node-input-temperatureTopic" placeholder="temperature">
+    </div>
+    <div class="form-row">
+        <label for="node-input-humidityTopic"><i class="fa fa-tint"></i> Relative Humidity Topic</label>
+        <input type="text" id="node-input-humidityTopic" placeholder="relativeHumidity">
+    </div>
 </script>
-
-

@@ -1,6 +1,6 @@
 {
     "name": "@r375ch/absolute-humidity",
-    "version": "0.9.2",
+    "version": "0.9.3",
     "description": "Calculates the absolute air humidity and dew point based on relative humidity and temperature",
     "main": "absolute-humidity.js",
     "author": "r375ch",

@@ -3,18 +3,36 @@
 <script type="text/markdown" data-help-name="absolute-humidity">
 Berechnet absolute Luftfeuchtigkeit und Taupunkt für eine gegebene relative Luftfeuchte und Temperatur.
     
+### Konfiguration
+    
+Die Node kann mit den Optionen `temperatureTopic` und `humidityTopic` konfiguriert werden:
+    
+- **Temperatur-Topic**: Der Topic, auf den die Temperatur-Meldungen gesendet werden (Standard: "temperature")
+- **Relative Feuchte-Topic**: Der Topic, auf den die relative Feuchte-Meldungen gesendet werden (Standard: "relativeHumidity")
+    
 ### Inputs
-  
-: msg.relativeHumidity (number)	: die relative Luftfeuchtigkeit [%]
-: msg.temperature (number)	: die Lufttemperatur [°C]
-  
+
+Die Node akzeptiert Eingaben auf drei Arten:
+
+1. Über Message-Properties:
+   - `msg.relativeHumidity` (number): die relative Luftfeuchtigkeit [%]
+   - `msg.temperature` (number): die Lufttemperatur [°C]
+
+2. Über konfigurierte Topics:
+   - Nachrichten mit dem konfigurierten Temperatur-Topic und `msg.payload` (number) für die Temperatur [°C]
+   - Nachrichten mit dem konfigurierten Feuchte-Topic und `msg.payload` (number) für die relative Luftfeuchte [%]
+
+3. Über Datenpunkt-Kennungen:
+   - Nachrichten mit `msg.datapoint = "ACTUAL_TEMPERATURE"` und `msg.payload` (number) für die Temperatur [°C]
+   - Nachrichten mit `msg.datapoint = "HUMIDITY"` und `msg.payload` (number) für die relative Luftfeuchte [%]
+
 ### Outputs
-  
+
 : msg.absoluteHumidity (number)	: die absolute Luftfeuchtigkeit [g/m³], auf eine Nachkommastelle gerundet
 : msg.dewPoint (number)		: der Taupunkt [°C], auf eine Nachkommastelle gerundet
-  
+
 ### Details
-  
+
 Die empfangene Nachricht soll zwei Eigenschaften enthalten:
   
 Die relative Luftfeuchtigkeit `relativeHumidity` ist ein Maß für die Menge an Wasserdampf in der Luft im Vergleich zur maximalen Menge an Dampf, die die Luft bei ihrer aktuellen Temperatur aufnehmen kann. Sie wird in Prozent [%] dargestellt.

@@ -1,9 +1,10 @@
-
 module.exports = function(RED) {
 
     function AbsoluteHumidityNode(config) {
 	
         RED.nodes.createNode(this,config);
+        this.temperatureTopic = config.temperatureTopic;
+        this.humidityTopic = config.humidityTopic;
 
 	context = this.context();
 	
@@ -19,8 +20,10 @@ module.exports = function(RED) {
 	    else
 	    {
 		// ...or the appropriate topic and payload
-		//console.log(typeof msg.payload);
-		if (msg.topic === 'relativeHumidity' && typeof msg.payload === 'number')
+		if (msg.topic === this.humidityTopic && typeof msg.payload === 'number')
+		    context.set('r',msg.payload);
+		// ...or the datapoint HUMIDITY and payload
+		else if (msg.datapoint === 'HUMIDITY' && typeof msg.payload === 'number')
 		    context.set('r',msg.payload);
 	    }
 
@@ -29,7 +32,11 @@ module.exports = function(RED) {
 		context.set('T',msg.temperature);
 	    else
 	    {
-		if (msg.topic === 'temperature' && typeof msg.payload === 'number')
+		// ...or the appropriate topic and payload
+		if (msg.topic === this.temperatureTopic && typeof msg.payload === 'number')
+		    context.set('T',msg.payload);
+		// ...or the datapoint ACTUAL_TEMPERATURE and payload
+		else if (msg.datapoint === 'ACTUAL_TEMPERATURE' && typeof msg.payload === 'number')
 		    context.set('T',msg.payload);
 	    }
 	    
