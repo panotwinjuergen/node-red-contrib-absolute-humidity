@@ -2,7 +2,7 @@ var should = require("should");
 var helper = require("node-red-node-test-helper");
 var hummyNode = require("../src/absolute-humidity.js");
 
-var flow = [{ id: "n1", type: "absolute-humidity", name: "test name",wires:[["n2"]] },
+var flow = [{ id: "n1", type: "absolute-humidity", name: "test name", temperatureTopic: "temp", humidityTopic: "hum", wires:[["n2"]] },
 	    { id: "n2", type: "helper" }];
 
 //helper.init(require.resolve('node-red'));
@@ -102,43 +102,72 @@ describe('absolute-humidity Node', function () {
 	});
     });
 
-    it('should create correct results with two separate input messages', function (done) {
+    // Test topic-based input
+    it('should handle topic-based input correctly', function (done) {
 	helper.load(hummyNode, flow, function () {
 	    var n2 = helper.getNode("n2");
 	    var n1 = helper.getNode("n1");
+	    var receivedCount = 0;
+
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint');
-		    msg.should.have.property('absoluteHumidity');
+		    msg.should.have.property('dewPoint', 15.4);
+		    msg.should.have.property('absoluteHumidity', 13);
 		    done();
 		} catch(err) {
 		    console.log("FAIL: " + err);
-		}		    
+		}
 	    });
-	    n1.receive({ relativeHumidity: 75 });
-	    n1.receive({ temperature: 20 });
+
+	    // Send temperature and humidity with configured topics
+	    n1.receive({ topic: "temp", payload: 20.0 });
+	    n1.receive({ topic: "hum", payload: 75 });
 	});
     });
-    
 
-    it('should create correct results with two separate input messages', function (done) {
+    // Test datapoint-based input
+    it('should handle datapoint-based input correctly', function (done) {
 	helper.load(hummyNode, flow, function () {
 	    var n2 = helper.getNode("n2");
 	    var n1 = helper.getNode("n1");
+	    var receivedCount = 0;
+
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint');
-		    msg.should.have.property('absoluteHumidity');
+		    msg.should.have.property('dewPoint', 15.4);
+		    msg.should.have.property('absoluteHumidity', 13);
 		    done();
 		} catch(err) {
 		    console.log("FAIL: " + err);
-		}		    
+		}
 	    });
-	    n1.receive({ topic: 'relativeHumidity', payload: 75 });
-	    n1.receive({ topic: 'temperature',      payload: 20 });
+
+	    // Send temperature and humidity with datapoint identifiers
+	    n1.receive({ datapoint: "ACTUAL_TEMPERATURE", payload: 20.0 });
+	    n1.receive({ datapoint: "HUMIDITY", payload: 75 });
 	});
     });
-    
 
+    // Test mixed input methods
+    it('should handle mixed input methods correctly', function (done) {
+	helper.load(hummyNode, flow, function () {
+	    var n2 = helper.getNode("n2");
+	    var n1 = helper.getNode("n1");
+	    var receivedCount = 0;
+
+	    n2.on("input", function (msg) {
+		try {
+		    msg.should.have.property('dewPoint', 15.4);
+		    msg.should.have.property('absoluteHumidity', 13);
+		    done();
+		} catch(err) {
+		    console.log("FAIL: " + err);
+		}
+	    });
+
+	    // Send temperature via topic and humidity via datapoint
+	    n1.receive({ topic: "temp", payload: 20.0 });
+	    n1.receive({ datapoint: "HUMIDITY", payload: 75 });
+	});
+    });
 });
-

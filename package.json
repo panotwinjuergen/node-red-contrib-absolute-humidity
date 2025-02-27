@@ -6,7 +6,7 @@
     "author": "r375ch",
     "license": "Unlicense",
     "node-red": {
-	"version": ">=2.0.0",
+        "version": ">=2.0.0",
         "nodes": {
             "absolute-humidity": "src/absolute-humidity.js"
         }
@@ -14,7 +14,11 @@
     "engines": {
         "node": ">=12.0.0"
     },
-    "keywords": [ "node-red", "humidity", "dew point" ],
+    "keywords": [
+        "node-red",
+        "humidity",
+        "dew point"
+    ],
     "scripts": {
         "test": "mocha \"test/**/*_spec.js\""
     },
@@ -23,19 +27,20 @@
         "log": "^6.3.1"
     },
     "devDependencies": {
+        "mocha": "^11.1.0",
         "node-red": "^4.0.2",
         "node-red-node-test-helper": "^0.3.4"
     },
     "bugs": {
-	"url": "https://github.com/r375ch/node-red-contrib-absolute-humidity/issues"
+        "url": "https://github.com/r375ch/node-red-contrib-absolute-humidity/issues"
     },
     "homepage": "https://github.com/r375ch/node-red-contrib-absolute-humidity",
     "repository": {
-	"type": "github",
-	"url": "git+https://github.com/r375ch/node-red-contrib-absolute-humidity.git"
+        "type": "github",
+        "url": "git+https://github.com/r375ch/node-red-contrib-absolute-humidity.git"
     },
     "publishConfig": {
-	"access": "public",
-	"registry": "https://registry.npmjs.org/"
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
     }
 }
