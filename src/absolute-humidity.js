@@ -9,23 +9,37 @@ module.exports = function(RED) {
 	context = this.context();
 	
         this.on('input', function(msg, send, done) {
+            // Create a copy of the incoming message to preserve all properties
+            var newMsg = {...msg};
 	    
 	    // --------------------------------------------------------------
 	    // persist data
 	    //
+	    let humidityValue;
 	    
 	    // the incoming message shall either have the property 'relativeHumidity'...
 	    if (typeof msg.relativeHumidity == 'number')
-		context.set('r',msg.relativeHumidity);
-	    else
-	    {
+		humidityValue = msg.relativeHumidity;
+	    else {
 		// ...or the appropriate topic and payload
 		if (msg.topic === this.humidityTopic && typeof msg.payload === 'number')
-		    context.set('r',msg.payload);
+		    humidityValue = msg.payload;
 		// ...or the datapoint HUMIDITY and payload
 		else if (msg.datapoint === 'HUMIDITY' && typeof msg.payload === 'number')
-		    context.set('r',msg.payload);
+		    humidityValue = msg.payload;
 	    }
+
+            // Validate humidity range
+            if (humidityValue !== undefined) {
+                if (humidityValue < 0 || humidityValue > 100) {
+                    this.status({fill:"red",shape:"dot",text:"Invalid humidity: " + humidityValue + "% (must be 0-100%)"});
+                    if (done) {
+                        done("Relative humidity must be between 0% and 100%, got: " + humidityValue + "%");
+                    }
+                    return;
+                }
+                context.set('r', humidityValue);
+            }
 
 	    // same for the temperature
 	    if (typeof msg.temperature == 'number')
@@ -52,12 +66,14 @@ module.exports = function(RED) {
 
 	    //console.log("r=" + r + ", T=" + T);
 
-	    const statustext = "rel.hum=" + r + ", temp=" + T;
+	    const statustext = "rel.hum=" + (r !== undefined ? r : "?") + ", temp=" + (T !== undefined ? T : "?");
 
 	    if (typeof r === 'undefined' || typeof T === 'undefined') {
-		this.status({fill:"red",shape:"dot",text:statustext});
-		done();
-		return;
+		this.status({fill:"yellow",shape:"ring",text:statustext});
+		if (done) {
+                    done();
+                }
+		return;  // Don't send a message until we have both values
 	    }
 	    
 	    this.status({fill:"green",shape:"dot",text:statustext});
@@ -91,15 +107,18 @@ module.exports = function(RED) {
 	    TD = Math.round(TD*10)/10.0;
 	    AF = Math.round(AF*10)/10.0;
 	    
-	    msg.dewPoint = TD
-	    msg.absoluteHumidity = AF
+	    newMsg.dewPoint = TD;
+	    newMsg.absoluteHumidity = AF;
 	    
 	    //console.log("msg.absoluteHumidity=" + msg.absoluteHumidity + ", msg.dewPoint=" + msg.dewPoint);
 
 	    descr = "AH: " + AF + " g/m³, DP: " + TD + " °C";
 	    this.status({fill:"green",shape:"dot",text:descr});
 
-	    send(msg);
+	    send(newMsg);
+            if (done) {
+	        done();
+            }
         });
     }
     

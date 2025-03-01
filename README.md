@@ -23,6 +23,17 @@ The node accepts inputs in three ways:
    - Messages with `msg.datapoint = "ACTUAL_TEMPERATURE"` and `msg.payload` (number) for temperature [°C]
    - Messages with `msg.datapoint = "HUMIDITY"` and `msg.payload` (number) for relative humidity [%]
 
+### Input Validation
+
+The node validates the relative humidity input to ensure accurate calculations:
+
+- Valid range: 0% to 100%
+- Values outside this range will:
+  - Trigger an error message
+  - Show a red status indicator
+  - Not produce output values
+- Validation applies to all input methods (properties, topics, and datapoints)
+
 ### Outputs
 
 `msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to one decimal place
