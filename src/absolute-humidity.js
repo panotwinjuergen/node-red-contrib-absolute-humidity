@@ -9,9 +9,6 @@ module.exports = function(RED) {
 	context = this.context();
 	
         this.on('input', function(msg, send, done) {
-            // Create a copy of the incoming message to preserve all properties
-            var newMsg = {...msg};
-	    
 	    // --------------------------------------------------------------
 	    // persist data
 	    //
@@ -107,15 +104,15 @@ module.exports = function(RED) {
 	    TD = Math.round(TD*10)/10.0;
 	    AF = Math.round(AF*10)/10.0;
 	    
-	    newMsg.dewPoint = TD;
-	    newMsg.absoluteHumidity = AF;
+	    msg.dewPoint = TD;
+	    msg.absoluteHumidity = AF;
 	    
 	    //console.log("msg.absoluteHumidity=" + msg.absoluteHumidity + ", msg.dewPoint=" + msg.dewPoint);
 
 	    descr = "AH: " + AF + " g/m³, DP: " + TD + " °C";
 	    this.status({fill:"green",shape:"dot",text:descr});
 
-	    send(newMsg);
+	    send(msg);
             if (done) {
 	        done();
             }
