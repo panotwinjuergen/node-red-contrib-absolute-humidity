@@ -3,9 +3,13 @@ Calculates the absolute humidity and dew point for a given relative humidity and
 ### Configuration
 
 The node can be configured with custom message topics for both temperature and relative humidity inputs:
-
+    
 - **Temperature Topic**: The topic name for temperature messages (default: "temperature")
 - **Relative Humidity Topic**: The topic name for relative humidity messages (default: "relativeHumidity")
+
+- **Formula**: Choose between two calculation methods:
+  - **Wetterochs**: Classic Magnus formula implementation, valid for temperatures between -45°C and 60°C
+  - **Mark G. Lawrence**: Alternative implementation with (±0.35°C), valid for temperatures between -40°C and 50°C
 
 ### Inputs
 
