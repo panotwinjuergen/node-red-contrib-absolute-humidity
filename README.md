@@ -1,5 +1,5 @@
 Calculates the absolute humidity and dew point for a given relative humidity and air temperature.
-    
+
 ### Configuration
 
 The node can be configured with custom message topics for both temperature and relative humidity inputs:
@@ -34,6 +34,18 @@ The node validates the relative humidity input to ensure accurate calculations:
   - Not produce output values
 - Validation applies to all input methods (properties, topics, and datapoints)
 
+The node also validates the temperature input:
+
+- Valid range depends on the selected formula:
+  - Wetterochs formula: -45°C to 60°C
+  - Lawrence formula: -40°C to 50°C
+- Values outside these ranges will:
+  - Trigger an error message with the valid range
+  - Show a red status indicator
+  - Not produce output values
+- Validation applies to all input methods
+- The Lawrence formula provides an accuracy of ±0.35°C within its temperature range
+
 ### Outputs
 
 `msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to one decimal place
@@ -57,3 +69,4 @@ The dew point `dewPoint` indicates the temperature to which air must be cooled t
 ### References
 
  -  https://www.wetterochs.de/wetter/feuchte.html
+ - https://journals.ametsoc.org/view/journals/bams/86/2/bams-86-2-225.xml (Lawrence, M.G., 2005: The Relationship between Relative Humidity and the Dewpoint Temperature in Moist Air: A Simple Conversion and Applications)

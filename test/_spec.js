@@ -29,8 +29,8 @@ describe('absolute-humidity Node', function () {
             n2.on("input", function (msg) {
                 try {
                     msg.should.have.property('originalValue', 42);
-                    msg.should.have.property('dewPoint', 15.4);
-                    msg.should.have.property('absoluteHumidity', 13);
+                    msg.should.have.property('dewPoint', 15.43);
+                    msg.should.have.property('absoluteHumidity', 12.96);
                     done();
                 } catch(err) {
                     done(err);
@@ -89,7 +89,7 @@ describe('absolute-humidity Node', function () {
             });
 
             n1.error = function(msg) {
-                msg.should.equal("Relative humidity must be between 0% and 100%, got: -5%");
+                msg.should.equal("Invalid humidity: -5% (OK: 0-100%)");
                 msgReceived.should.be.false();
                 done();
             };
@@ -109,12 +109,12 @@ describe('absolute-humidity Node', function () {
             });
 
             n1.error = function(msg) {
-                msg.should.equal("Relative humidity must be between 0% and 100%, got: 120%");
+                msg.should.equal("Invalid humidity: -1% (OK: 0-100%)");
                 msgReceived.should.be.false();
                 done();
             };
 
-            n1.receive({ temperature: 20.0, relativeHumidity: 120 });
+            n1.receive({ temperature: 20.0, relativeHumidity: -1 });
         });
     });
 
@@ -129,12 +129,12 @@ describe('absolute-humidity Node', function () {
             });
 
             n1.error = function(msg) {
-                msg.should.equal("Relative humidity must be between 0% and 100%, got: 101%");
+                msg.should.equal("Invalid humidity: -1% (OK: 0-100%)");
                 msgReceived.should.be.false();
                 done();
             };
 
-            n1.receive({ topic: "hum", payload: 101 });
+            n1.receive({ topic: "hum", payload: -1 });
         });
     });
 
@@ -149,7 +149,7 @@ describe('absolute-humidity Node', function () {
             });
 
             n1.error = function(msg) {
-                msg.should.equal("Relative humidity must be between 0% and 100%, got: -1%");
+                msg.should.equal("Invalid humidity: -1% (OK: 0-100%)");
                 msgReceived.should.be.false();
                 done();
             };
@@ -157,7 +157,7 @@ describe('absolute-humidity Node', function () {
             n1.receive({ datapoint: "HUMIDITY", payload: -1 });
         });
     });
-    
+
     it('should create correct result for T=20°C  and r=75%', function (done) {
 	helper.load(hummyNode, flow, function () {
 	    var n2 = helper.getNode("n2");
@@ -165,8 +165,8 @@ describe('absolute-humidity Node', function () {
 
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint', 15.4);
-		    msg.should.have.property('absoluteHumidity', 13);
+		    msg.should.have.property('dewPoint', 15.43);
+		    msg.should.have.property('absoluteHumidity', 12.96);
 		    done();
 		} catch(err) {
 		    done(err);
@@ -183,8 +183,8 @@ describe('absolute-humidity Node', function () {
 
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint', -11.9);
-		    msg.should.have.property('absoluteHumidity', 1.9);
+		    msg.should.have.property('dewPoint', -11.89);
+		    msg.should.have.property('absoluteHumidity', 1.88);
 		    done();
 		} catch(err) {
 		    done(err);
@@ -202,7 +202,7 @@ describe('absolute-humidity Node', function () {
 	    n2.on("input", function (msg) {
 		try {
 		    msg.should.have.property('dewPoint', 0);
-		    msg.should.have.property('absoluteHumidity', 4.8);
+		    msg.should.have.property('absoluteHumidity', 4.85);
 		    done();
 		} catch(err) {
 		    done(err);
@@ -219,8 +219,8 @@ describe('absolute-humidity Node', function () {
 
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint', -18.4);
-		    msg.should.have.property('absoluteHumidity', 1.2);
+		    msg.should.have.property('dewPoint', -18.44);
+		    msg.should.have.property('absoluteHumidity', 1.18);
 		    done();
 		} catch(err) {
 		    done(err);
@@ -239,8 +239,8 @@ describe('absolute-humidity Node', function () {
 
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint', 15.4);
-		    msg.should.have.property('absoluteHumidity', 13);
+		    msg.should.have.property('dewPoint', 15.43);
+		    msg.should.have.property('absoluteHumidity', 12.96);
                     msg.should.have.property('originalValue', 42);
 		    done();
 		} catch(err) {
@@ -262,8 +262,8 @@ describe('absolute-humidity Node', function () {
 
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint', 15.4);
-		    msg.should.have.property('absoluteHumidity', 13);
+		    msg.should.have.property('dewPoint', 15.43);
+		    msg.should.have.property('absoluteHumidity', 12.96);
                     msg.should.have.property('originalValue', 42);
 		    done();
 		} catch(err) {
@@ -285,8 +285,8 @@ describe('absolute-humidity Node', function () {
 
 	    n2.on("input", function (msg) {
 		try {
-		    msg.should.have.property('dewPoint', 15.4);
-		    msg.should.have.property('absoluteHumidity', 13);
+		    msg.should.have.property('dewPoint', 15.43);
+		    msg.should.have.property('absoluteHumidity', 12.96);
                     msg.should.have.property('originalValue', 42);
 		    done();
 		} catch(err) {
