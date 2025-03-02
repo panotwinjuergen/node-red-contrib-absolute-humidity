@@ -52,9 +52,9 @@ The node also validates the temperature input:
 
 ### Outputs
 
-`msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to one decimal place
+`msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to two decimal places
 
-`msg.dewPoint` (number): the dew point [°C], rounded to one decimal place
+`msg.dewPoint` (number): the dew point [°C], rounded to two decimal places
 
 ### Details
     
