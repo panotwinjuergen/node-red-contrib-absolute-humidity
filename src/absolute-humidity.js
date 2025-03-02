@@ -26,7 +26,7 @@ module.exports = function(RED) {
 		    humidityValue = msg.payload;
 	    }
 
-            // Validate humidity range
+            // validate humidity range
             if (humidityValue !== undefined) {
                 if (humidityValue < 0 || humidityValue > 100) {
                     this.status({fill:"red",shape:"dot",text:"Invalid humidity: " + humidityValue + "% (must be 0-100%)"});
@@ -38,7 +38,7 @@ module.exports = function(RED) {
                 context.set('r', humidityValue);
             }
 
-	    // same for the temperature
+	    // the incoming message shall either have the property 'temperature'
 	    if (typeof msg.temperature == 'number')
 		context.set('T',msg.temperature);
 	    else
@@ -55,10 +55,10 @@ module.exports = function(RED) {
 	    // get input
 	    //
 	    
-	    // relative Luftfeuchte [%]
+	    // relative humidity [%]
 	    r = context.get('r');
 	    
-	    // Temperatur [°C]
+	    // temperature [°C]
 	    T = context.get('T');
 
 	    //console.log("r=" + r + ", T=" + T);
