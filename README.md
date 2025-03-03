@@ -7,9 +7,9 @@ The node can be configured with custom message topics for both temperature and r
 - **Temperature Topic**: The topic name for temperature messages (default: "temperature")
 - **Relative Humidity Topic**: The topic name for relative humidity messages (default: "relativeHumidity")
 
-- **Formula**: Choose between two calculation methods:
-  - **Wetterochs**: Classic Magnus formula implementation, valid for temperatures between -45°C and 60°C
-  - **Mark G. Lawrence**: Alternative implementation with (±0.35°C), valid for temperatures between -40°C and 50°C
+Choose between two calculation methods:
+- **Wetterochs**: Classic Magnus formula implementation, valid for temperatures between -45°C and 60°C
+- **Mark G. Lawrence**: Alternative implementation with (±0.35°C), valid for temperatures between -40°C and 50°C
 
 ### Inputs
 
@@ -58,7 +58,7 @@ The node also validates the temperature input:
 
 ### Details
     
-The received message shall contain two properties:
+The node uses two measurements for it's calculations:
     
 `relativeHumidity` is a measure of the amount of water vapor present in the air compared to the maximum amount of vapor the air can hold at its current temperature. It is expressed as a percentage [%].
 
