@@ -231,6 +231,46 @@ describe('absolute-humidity Node with Wetterochs Formula', function () {
 	});
     });
 
+    it('should reject lower temperature outside Wetterochs range (-45°C to 60°C)', function (done) {
+        helper.load(hummyNode, flow, function () {
+            var n2 = helper.getNode("n2");
+            var n1 = helper.getNode("n1");
+            var msgReceived = false;
+
+            n2.on("input", function (msg) {
+                msgReceived = true;
+            });
+
+            n1.error = function(msg) {
+                msg.should.equal("-46°C not valid for Wetterochs (-45-60°C)");
+                msgReceived.should.be.false();
+                done();
+            };
+
+            n1.receive({ temperature: -46, relativeHumidity: 50 });
+        });
+    });
+    
+    it('should reject upper temperature outside Wetterochs range (-45°C to 60°C)', function (done) {
+        helper.load(hummyNode, flow, function () {
+            var n2 = helper.getNode("n2");
+            var n1 = helper.getNode("n1");
+            var msgReceived = false;
+
+            n2.on("input", function (msg) {
+                msgReceived = true;
+            });
+
+            n1.error = function(msg) {
+                msg.should.equal("61°C not valid for Wetterochs (-45-60°C)");
+                msgReceived.should.be.false();
+                done();
+            };
+
+            n1.receive({ temperature: 61, relativeHumidity: 50 });
+        });
+    });
+
     // Test topic-based input
     it('should handle topic-based input correctly and preserve properties with Wetterochs formula', function (done) {
 	helper.load(hummyNode, flow, function () {
@@ -532,7 +572,7 @@ describe('absolute-humidity Node with Lawrence Formula', function () {
         });
     });
     
-    it('should reject temperature outside Lawrence range (-40°C to 50°C)', function (done) {
+    it('should reject lower temperature outside Lawrence range (-40°C to 50°C)', function (done) {
         helper.load(hummyNode, lawrenceFlow, function () {
             var n2 = helper.getNode("n2");
             var n1 = helper.getNode("n1");
