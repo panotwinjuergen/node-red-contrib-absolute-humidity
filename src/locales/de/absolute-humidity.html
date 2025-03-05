@@ -5,11 +5,15 @@ Berechnet absolute Luftfeuchtigkeit und Taupunkt für eine gegebene relative Luf
     
 ### Konfiguration
     
-Die Node kann mit den Optionen `temperatureTopic` und `humidityTopic` konfiguriert werden:
+Der Node kann mit den folgenden Optionen konfiguriert werden:
     
 - **Temperatur-Topic**: Der Topic, auf den die Temperatur-Meldungen gesendet werden (Standard: "temperature")
 - **Relative Feuchte-Topic**: Der Topic, auf den die relative Feuchte-Meldungen gesendet werden (Standard: "relativeHumidity")
-    
+
+- **Formel**: Wählen Sie zwischen zwei Berechnungsmethoden:
+  - **Wetterochs**: Klassische Magnus-Formel-Implementierung, gültig für Temperaturen zwischen -45°C und 60°C
+  - **Mark G. Lawrence**: Alternative Implementierung (±0,35°C), gültig für Temperaturen zwischen -40°C und 50°C
+
 ### Inputs
 
 Der Node akzeptiert Eingaben auf drei Arten:
@@ -37,10 +41,22 @@ Der Node überprüft die eingegebene relative Luftfeuchtigkeit, um genaue Berech
   - Erzeugen keine Ausgabewerte
 - Die Validierung gilt für alle Eingabemethoden (Properties, Topics und Datapoints)
 
+Der Node überprüft auch die Temperatureingabe:
+
+- Der gültige Bereich hängt von der gewählten Formel ab:
+  - Wetterochs-Formel: -45°C bis 60°C
+  - Lawrence-Formel: -40°C bis 50°C
+- Werte außerhalb dieser Bereiche:
+  - Lösen eine Fehlermeldung mit dem gültigen Bereich aus
+  - Zeigen einen roten Statusindikator
+  - Erzeugen keine Ausgabewerte
+- Die Validierung gilt für alle Eingabemethoden
+- Die Lawrence-Formel bietet eine Genauigkeit von (±0,35°C) innerhalb ihres Temperaturbereichs
+
 ### Outputs
 
-: msg.absoluteHumidity (number): die absolute Luftfeuchtigkeit [g/m³], auf eine Nachkommastelle gerundet
-: msg.dewPoint (number): der Taupunkt [°C], auf eine Nachkommastelle gerundet
+: msg.absoluteHumidity (number): die absolute Luftfeuchtigkeit [g/m³], auf zwei Nachkommastellen gerundet
+: msg.dewPoint (number): der Taupunkt [°C], auf zwei Nachkommastellen gerundet
 
 ### Details
 
@@ -55,8 +71,23 @@ Basierend auf diesen zwei Werten berechnet der Node zwei zusätzliche Eigenschaf
 Die absolute Luftfeuchte `absoluteHumidity` quantifiziert die tatsächliche Menge an Wasserdampf in der Luft, unabhängig von der Lufttemperatur. Sie wird in Gramm Wasser pro Kubikmeter Luft [g/m³] gemessen.
     
 Der Taupunkt `dewPoint` gibt die Temperatur an, auf die die Luft abgekühlt werden muss, um mit Wasserdampf gesättigt zu sein. Wird die Luft abgekühlt, verringert sich ihre Fähigkeit, Feuchtigkeit zu halten. Wird sie unter den Taupunkt abgekühlt, wird Wasserdampf zu flüssigem Wasser kondensieren. Dies kann zur Bildung von Wasser (Tau) auf Oberflächen führen, wenn die Luft mit einem kühleren Objekt in Kontakt kommt. Der Taupunkt wird in Grad Celsius [°C] gemessen.
-    
-### Quellen
 
- -  https://www.wetterochs.de/wetter/feuchte.html
+### Berechnungsmethoden
+
+Der Node bietet zwei verschiedene Methoden zur Berechnung von Taupunkt und absoluter Luftfeuchtigkeit:
+
+1. **Wetterochs-Formel** (Klassische Magnus-Formel)
+   - Basiert auf der Magnus-Formel von wetterochs.de
+   - Gültiger Temperaturbereich: -45°C bis 60°C
+   - Verwendet unterschiedliche Parameter für Temperaturen über und unter 0°C
+   - Weit verbreitet in meteorologischen Anwendungen
+   - Quelle: https://www.wetterochs.de/wetter/feuchte.html
+
+2. **Mark G. Lawrence Formel**
+   - Veröffentlicht im Bulletin of the American Meteorological Society (2005)
+   - Gültiger Temperaturbereich: -40°C bis 50°C
+   - Verbesserte Genauigkeit: ±0,35°C
+   - Verwendet optimierte Konstanten für bessere Präzision
+   - Empfohlen für Anwendungen, die hohe Genauigkeit erfordern
+   - Quelle: https://journals.ametsoc.org/view/journals/bams/86/2/bams-86-2-225.xml (Lawrence, M.G., 2005: The Relationship between Relative Humidity and the Dewpoint Temperature in Moist Air: A Simple Conversion and Applications. Bull. Amer. Meteor. Soc., 86, 225–233)    
 </script>

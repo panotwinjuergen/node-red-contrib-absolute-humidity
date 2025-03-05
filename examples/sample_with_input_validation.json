@@ -1,0 +1,870 @@
+[
+    {
+        "id": "348dbd36605863c1",
+        "type": "tab",
+        "label": "Example absolute-humidity",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e2c2490da4201066",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "datapoint=HUMIDITY, payload=60",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "datapoint",
+                "v": "HUMIDITY",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "60",
+        "payloadType": "num",
+        "x": 620,
+        "y": 200,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "9fa5604a955e9afa",
+        "type": "debug",
+        "z": "348dbd36605863c1",
+        "name": "Lawrence",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1440,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "68e7ccdc516ba2d1",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "datapoint=ACTUAL_TEMPERATURE, payload=-5",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "datapoint",
+                "v": "ACTUAL_TEMPERATURE",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "-5",
+        "payloadType": "num",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "087ece799bf81cd3",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "topic=relativeHumidity, payload=63",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "relativeHumidity",
+        "payload": "63",
+        "payloadType": "num",
+        "x": 620,
+        "y": 240,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "d7f32e5cd211747e",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "topic=temperature, payload=-35",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "temperature",
+        "payload": "-35",
+        "payloadType": "num",
+        "x": 630,
+        "y": 360,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "c9bd112e3b88b762",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.relativeHumidity 63 & msg.temperature 17.1",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "17.1",
+                "vt": "num"
+            },
+            {
+                "p": "relativeHumidity",
+                "v": "63",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 580,
+        "y": 440,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "d183460a86497213",
+        "type": "link out",
+        "z": "348dbd36605863c1",
+        "name": "Out_Inputs_ok",
+        "mode": "link",
+        "links": [
+            "e52badb160159c14"
+        ],
+        "x": 935,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "e52badb160159c14",
+        "type": "link in",
+        "z": "348dbd36605863c1",
+        "name": "In_Calculate",
+        "links": [
+            "ae4c62eb6d912503",
+            "d183460a86497213",
+            "df8987b18e5dbdfc"
+        ],
+        "x": 1065,
+        "y": 400,
+        "wires": [
+            [
+                "eb0fa92adfd6bdd6",
+                "bbf94fa1dd654512"
+            ]
+        ]
+    },
+    {
+        "id": "06b97881b647410b",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.relativeHumidity=-10",
+        "props": [
+            {
+                "p": "relativeHumidity",
+                "v": "-10",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 550,
+        "y": 740,
+        "wires": [
+            [
+                "ae4c62eb6d912503"
+            ]
+        ]
+    },
+    {
+        "id": "16e348283862d956",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "msg.topic=relativeHumidity, payload=110",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "relativeHumidity",
+        "payload": "110",
+        "payloadType": "num",
+        "x": 500,
+        "y": 900,
+        "wires": [
+            [
+                "ae4c62eb6d912503"
+            ]
+        ]
+    },
+    {
+        "id": "0071db62cea05103",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "msg.datapoint=HUMIDITY, payload=120",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "datapoint",
+                "v": "HUMIDITY",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "120",
+        "payloadType": "num",
+        "x": 510,
+        "y": 940,
+        "wires": [
+            [
+                "ae4c62eb6d912503"
+            ]
+        ]
+    },
+    {
+        "id": "cf3fe8c222f24ed4",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "mas.topic=relativeHumidity, payload=-20",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "relativeHumidity",
+        "payload": "-20",
+        "payloadType": "num",
+        "x": 500,
+        "y": 780,
+        "wires": [
+            [
+                "ae4c62eb6d912503"
+            ]
+        ]
+    },
+    {
+        "id": "2cb87207a08e36e0",
+        "type": "catch",
+        "z": "348dbd36605863c1",
+        "name": "Catch errors from invalid inputs...",
+        "scope": [
+            "eb0fa92adfd6bdd6",
+            "bbf94fa1dd654512"
+        ],
+        "uncaught": false,
+        "x": 1150,
+        "y": 200,
+        "wires": [
+            [
+                "e3d1819b02582238"
+            ]
+        ]
+    },
+    {
+        "id": "2a190a7c43c95a56",
+        "type": "comment",
+        "z": "348dbd36605863c1",
+        "name": "Input validation of humidity",
+        "info": "",
+        "x": 410,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "a7ebef5f56dedce9",
+        "type": "debug",
+        "z": "348dbd36605863c1",
+        "name": "Wetterochs",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1450,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "52ac9ba4c0e2b59c",
+        "type": "comment",
+        "z": "348dbd36605863c1",
+        "name": "Input validation of temperature",
+        "info": "",
+        "x": 1120,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "25fb759be0bdc39d",
+        "type": "comment",
+        "z": "348dbd36605863c1",
+        "name": "Error handling",
+        "info": "",
+        "x": 1070,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "e70ca622e54fc418",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.temperature -60",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "-60",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1330,
+        "y": 740,
+        "wires": [
+            [
+                "df8987b18e5dbdfc"
+            ]
+        ]
+    },
+    {
+        "id": "0ef17544640fc047",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.temperature -45",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "-45",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1330,
+        "y": 780,
+        "wires": [
+            [
+                "df8987b18e5dbdfc"
+            ]
+        ]
+    },
+    {
+        "id": "69f1d863207202c0",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.temperature -40",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "-40",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1330,
+        "y": 820,
+        "wires": [
+            [
+                "df8987b18e5dbdfc"
+            ]
+        ]
+    },
+    {
+        "id": "b79fd29e7a0cefa6",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.temperature 50",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "50",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1330,
+        "y": 860,
+        "wires": [
+            [
+                "df8987b18e5dbdfc"
+            ]
+        ]
+    },
+    {
+        "id": "8486f11df3f3424b",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.topic=temperature, payload=60",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "temperature",
+        "payload": "60",
+        "payloadType": "num",
+        "x": 1280,
+        "y": 900,
+        "wires": [
+            [
+                "df8987b18e5dbdfc"
+            ]
+        ]
+    },
+    {
+        "id": "b0874b1399bf0aa5",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.datapoint=ACTUAL_TEMPERATURE, payload=70",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "datapoint",
+                "v": "ACTUAL_TEMPERATURE",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "70",
+        "payloadType": "num",
+        "x": 1220,
+        "y": 940,
+        "wires": [
+            [
+                "df8987b18e5dbdfc"
+            ]
+        ]
+    },
+    {
+        "id": "ad393c1d75f3a7e5",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.relativeHumidity=70",
+        "props": [
+            {
+                "p": "relativeHumidity",
+                "v": "70",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 650,
+        "y": 280,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "cd43fca9bd9a1d2c",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "msg.temperature=37.75",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "37.75",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 660,
+        "y": 400,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "4030394093850536",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.relativeHumidity 63 & topic=temperature, payload -5",
+        "props": [
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            },
+            {
+                "p": "relativeHumidity",
+                "v": "63",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "temperature",
+        "payload": "-5",
+        "payloadType": "num",
+        "x": 550,
+        "y": 480,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "6f4a0a4854c22427",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.temperature 20 & topic=relativeHumidity, payload 40",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "20",
+                "vt": "num"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "relativeHumidity",
+        "payload": "40",
+        "payloadType": "num",
+        "x": 550,
+        "y": 520,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "9800a0e61263e9d4",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.temperature 8 & datapoint=HUMIDITY, payload 30",
+        "props": [
+            {
+                "p": "temperature",
+                "v": "8",
+                "vt": "num"
+            },
+            {
+                "p": "datapoint",
+                "v": "HUMIDITY",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "30",
+        "payloadType": "num",
+        "x": 560,
+        "y": 600,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "ff73d6184b6dafb6",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.relativeHumidity 35 & topic=temperature, payload -35",
+        "props": [
+            {
+                "p": "relativeHumidity",
+                "v": "35",
+                "vt": "num"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "temperature",
+        "payload": "-35",
+        "payloadType": "num",
+        "x": 550,
+        "y": 560,
+        "wires": [
+            [
+                "d183460a86497213"
+            ]
+        ]
+    },
+    {
+        "id": "ae4c62eb6d912503",
+        "type": "link out",
+        "z": "348dbd36605863c1",
+        "name": "Out_Invalid_Humidity",
+        "mode": "link",
+        "links": [
+            "e52badb160159c14"
+        ],
+        "x": 735,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "df8987b18e5dbdfc",
+        "type": "link out",
+        "z": "348dbd36605863c1",
+        "name": "Out_Invalid_Temperature",
+        "mode": "link",
+        "links": [
+            "e52badb160159c14"
+        ],
+        "x": 1505,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "9516fbc9e129605b",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": "msg.topic=relativeHumidity, payload=50",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "relativeHumidity",
+        "payload": "50",
+        "payloadType": "num",
+        "x": 510,
+        "y": 860,
+        "wires": [
+            [
+                "ae4c62eb6d912503"
+            ]
+        ]
+    },
+    {
+        "id": "e9a2bec8233180f1",
+        "type": "inject",
+        "z": "348dbd36605863c1",
+        "name": " msg.relativeHumidity=25",
+        "props": [
+            {
+                "p": "relativeHumidity",
+                "v": "25",
+                "vt": "num"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 550,
+        "y": 820,
+        "wires": [
+            [
+                "ae4c62eb6d912503"
+            ]
+        ]
+    },
+    {
+        "id": "ee36ed364f11cd73",
+        "type": "comment",
+        "z": "348dbd36605863c1",
+        "name": "Regular input in different versions",
+        "info": "",
+        "x": 430,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "eb0fa92adfd6bdd6",
+        "type": "absolute-humidity",
+        "z": "348dbd36605863c1",
+        "name": "Wetterochs",
+        "temperatureTopic": "temperature",
+        "humidityTopic": "relativeHumidity",
+        "formula": "wetterochs",
+        "x": 1230,
+        "y": 360,
+        "wires": [
+            [
+                "a7ebef5f56dedce9"
+            ]
+        ]
+    },
+    {
+        "id": "bbf94fa1dd654512",
+        "type": "absolute-humidity",
+        "z": "348dbd36605863c1",
+        "name": "Lawrence",
+        "temperatureTopic": "temperature",
+        "humidityTopic": "relativeHumidity",
+        "formula": "lawrence",
+        "x": 1220,
+        "y": 440,
+        "wires": [
+            [
+                "9fa5604a955e9afa"
+            ]
+        ]
+    },
+    {
+        "id": "e3d1819b02582238",
+        "type": "debug",
+        "z": "348dbd36605863c1",
+        "name": "msg.error.message",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "error.message",
+        "targetType": "msg",
+        "statusVal": "error.message",
+        "statusType": "auto",
+        "x": 1470,
+        "y": 200,
+        "wires": []
+    }
+]

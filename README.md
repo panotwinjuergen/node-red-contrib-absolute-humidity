@@ -1,11 +1,15 @@
 Calculates the absolute humidity and dew point for a given relative humidity and air temperature.
-    
+
 ### Configuration
 
 The node can be configured with custom message topics for both temperature and relative humidity inputs:
-
+    
 - **Temperature Topic**: The topic name for temperature messages (default: "temperature")
 - **Relative Humidity Topic**: The topic name for relative humidity messages (default: "relativeHumidity")
+
+Choose between two calculation methods:
+- **Wetterochs**: Classic Magnus formula implementation, valid for temperatures between -45°C and 60°C
+- **Mark G. Lawrence**: Alternative implementation with (±0.35°C), valid for temperatures between -40°C and 50°C
 
 ### Inputs
 
@@ -34,15 +38,27 @@ The node validates the relative humidity input to ensure accurate calculations:
   - Not produce output values
 - Validation applies to all input methods (properties, topics, and datapoints)
 
+The node also validates the temperature input:
+
+- Valid range depends on the selected formula:
+  - Wetterochs formula: -45°C to 60°C
+  - Lawrence formula: -40°C to 50°C
+- Values outside these ranges will:
+  - Trigger an error message with the valid range
+  - Show a red status indicator
+  - Not produce output values
+- Validation applies to all input methods
+- The Lawrence formula provides an accuracy of ±0.35°C within its temperature range
+
 ### Outputs
 
-`msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to one decimal place
+`msg.absoluteHumidity` (number): the absolute humidity [g/m³], rounded to two decimal places
 
-`msg.dewPoint` (number): the dew point [°C], rounded to one decimal place
+`msg.dewPoint` (number): the dew point [°C], rounded to two decimal places
 
 ### Details
     
-The received message shall contain two properties:
+The node uses two measurements for it's calculations:
     
 `relativeHumidity` is a measure of the amount of water vapor present in the air compared to the maximum amount of vapor the air can hold at its current temperature. It is expressed as a percentage [%].
 
@@ -57,3 +73,4 @@ The dew point `dewPoint` indicates the temperature to which air must be cooled t
 ### References
 
  -  https://www.wetterochs.de/wetter/feuchte.html
+ - https://journals.ametsoc.org/view/journals/bams/86/2/bams-86-2-225.xml (Lawrence, M.G., 2005: The Relationship between Relative Humidity and the Dewpoint Temperature in Moist Air: A Simple Conversion and Applications)

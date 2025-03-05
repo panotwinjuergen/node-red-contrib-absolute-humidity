@@ -1,3 +1,4 @@
+
 <!-- EN -->
 
 <script type="text/markdown" data-help-name="absolute-humidity" lang="en-US">
@@ -9,6 +10,10 @@ The node can be configured with custom message topics for both temperature and r
     
 - **Temperature Topic**: The topic name for temperature messages (default: "temperature")
 - **Relative Humidity Topic**: The topic name for relative humidity messages (default: "relativeHumidity")
+
+- **Formula**: Choose between two calculation methods:
+  - **Wetterochs**: Classic Magnus formula implementation, valid for temperatures between -45°C and 60°C
+  - **Mark G. Lawrence**: Alternative implementation with (±0.35°C), valid for temperatures between -40°C and 50°C
     
 ### Inputs
   
@@ -37,14 +42,26 @@ The node validates the relative humidity input to ensure accurate calculations:
    - Not produce output values
 - Validation applies to all input methods (properties, topics, and datapoints)
 
+The node also validates the temperature input:
+
+- Valid range depends on the selected formula:
+  - Wetterochs formula: -45°C to 60°C
+  - Lawrence formula: -40°C to 50°C
+- Values outside these ranges will:
+  - Trigger an error message with the valid range
+  - Show a red status indicator
+  - Not produce output values
+- Validation applies to all input methods
+- The Lawrence formula provides an accuracy (±0.35°C) within its temperature range
+
 ### Outputs
 
-: msg.absoluteHumidity (number)	: the absolute humidity [g/m³], rounded to one decimal place
-: msg.dewPoint (number)		: the dew point [°C], rounded to one decimal place
+: msg.absoluteHumidity (number)	: the absolute humidity [g/m³], rounded to decimal places
+: msg.dewPoint (number)		: the dew point [°C], rounded to two decimal places
 
 ### Details
     
-The needs two measurements to calculate the absolute humidity and dew point:
+The node needs two measurements to calculate the absolute humidity and dew point:
     
 `relativeHumidity` is a measure of the amount of water vapor present in the air compared to the maximum amount of vapor the air can hold at its current temperature. It is expressed as a percentage [%].
 
@@ -55,8 +72,23 @@ Based on these two measurements, the node calculates two additional properties, 
 `absoluteHumidity` quantifies the actual amount of water vapor in the air, independent of air temperature. It is measured in grams of water per cubic meter of air [g/m³].
 
 The dew point `dewPoint` indicates the temperature to which air must be cooled to become saturated with water vapor. As the air cools, its ability to hold moisture decreases. If it is cooled below the dew point, water vapor will condense into liquid water. This can lead to the formation of water (dew) on surfaces when the air comes into contact with a cooler object. The dew point is measured in degrees Celsius [°C].
-    
-### References
 
- -  https://www.wetterochs.de/wetter/feuchte.html
+### Calculation Methods
+
+The node offers two different methods for calculating dew point and absolute humidity:
+
+1. **Wetterochs Formula** (Classic Magnus)
+   - Based on the Magnus formula from wetterochs.de
+   - Valid temperature range: -45°C to 60°C
+   - Uses different parameters for temperatures above and below 0°C
+   - Widely used in meteorological applications
+   - Source: https://www.wetterochs.de/wetter/feuchte.html
+
+2. **Mark G. Lawrence Formula**
+   - Published in the Bulletin of the American Meteorological Society (2005)
+   - Valid temperature range: -40°C to 50°C
+   - Improved accuracy: ±0.35°C
+   - Uses optimized constants for better precision
+   - Recommended for applications requiring high accuracy
+   - Source: https://journals.ametsoc.org/view/journals/bams/86/2/bams-86-2-225.xml (Lawrence, M.G., 2005: The Relationship between Relative Humidity and the Dewpoint Temperature in Moist Air: A Simple Conversion and Applications. Bull. Amer. Meteor. Soc., 86, 225–233)
 </script>
